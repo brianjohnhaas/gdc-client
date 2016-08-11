@@ -1,5 +1,11 @@
 #!/usr/bin/env python2
 
+
+import sys, os
+sys.path.append(os.path.sep.join([os.path.dirname(os.path.realpath(__file__)), ".."]))
+sys.path.append(os.path.sep.join([os.path.dirname(os.path.realpath(__file__)), "..", "parcel"]))
+
+
 import argparse
 import logging
 import sys

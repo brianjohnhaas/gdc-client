@@ -75,7 +75,11 @@ def download(parser, args):
         ids.add(i['id'])
 
     client = get_client(args, args.token_file)
-    client.download_files(ids)
+    downloaded, errors = client.download_files(ids)
+
+    if errors:
+        raise RuntimeError("Error, not all files downloaded: {}".format(errors))
+    
 
 def config(parser):
     """ Configure a parser for download.
