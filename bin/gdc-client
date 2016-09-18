@@ -5,6 +5,7 @@ import sys, os
 sys.path.append(os.path.sep.join([os.path.dirname(os.path.realpath(__file__)), ".."]))
 sys.path.append(os.path.sep.join([os.path.dirname(os.path.realpath(__file__)), "..", "parcel"]))
 
+import signal
 
 import argparse
 import logging
@@ -33,6 +34,16 @@ ERROR_MSG = ' '.join([
     'An unexpected error has occurred during normal operation of the client.',
     'Please report the following exception to GDC support <{support_email}>.',
 ]).format(support_email=SUPPORT_EMAIL)
+
+
+
+## set timeout
+def timeout(signum, frame):
+    raise Exception("timeout")
+
+signal.signal(signal.SIGALRM, timeout)
+signal.alarm(4*60*60) # 4 hours should be long enough to retrieve data
+
 
 
 def log_version_header():
