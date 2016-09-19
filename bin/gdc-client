@@ -19,8 +19,13 @@ from gdc_client import auth
 from gdc_client import client
 from gdc_client import version
 
-
+logging.basicConfig(level=logging.DEBUG)
 logger = log.get_logger()
+logger.info("test logging info msg")
+logger.warning("test loggin warning msg")
+logger.debug("test logger debug level msg")
+
+
 
 DESCRIPTION = '''
 The Genomic Data Commons Command Line Client
@@ -39,10 +44,11 @@ ERROR_MSG = ' '.join([
 
 ## set timeout
 def timeout(signum, frame):
-    raise Exception("timeout")
+    logger.critical("Got timeout!!")
+    raise Exception("ALARM SET FOR TIMEOUT")
 
 signal.signal(signal.SIGALRM, timeout)
-signal.alarm(4*60*60) # 4 hours should be long enough to retrieve data
+signal.alarm(2*60*60) # 2 hours should be long enough to retrieve data
 
 
 
